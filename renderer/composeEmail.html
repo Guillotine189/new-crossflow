@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="./composeEmail.css">
+	<link rel="stylesheet" type="text/css" href="./commoncss.css">
+	<title></title>
+<style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(180deg, #051431, #00274E); 
+      color: #ffffff; 
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .leftWrapper {
+      background: linear-gradient(45deg, #1E1E1E, #3B3B3B);
+      color: #ffffff;
+      overflow-y: auto;
+      transition: background 0.5s ease-in-out;
+      flex: 1.9;
+      overflow-x: hidden;
+      padding: 0 15px 0 0;
+    }
+
+    .uppperHalf {
+      padding: 10px;
+      border-bottom: 1px solid #ffffff;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .option {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .option:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+    .lowerHalf {
+      padding: 20px;
+    }
+
+    .addFolderButton {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .addFolderButton:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+    .folderTextButton {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .folderTextButton:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700);
+    }
+
+    .overlay {
+      display: none;
+    }
+
+    .modal {
+      background: linear-gradient(45deg, #1E1E1E, #3B3B3B); 
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .addFolderButtonOverlay {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      margin-right: 10px;
+    }
+
+    .addFolderButtonOverlay:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+    
+    .rightWrapper {
+      flex: 4;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #203a43, #2c5364);
+/*      color: #ffffff;*/
+      padding: 20px;
+      transition: background 0.5s ease-in-out;
+    }
+
+    .emailLoggedIn {
+      padding: 10px;
+      border-bottom: 1px solid #ffffff;
+    }
+
+    .logoutLogoContainer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .logoutLogo {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+
+		.modal-overlay{
+		  display: none;
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background-color: rgba(0, 0, 0, 0.5);
+		  align-items: center;
+		  justify-content: center;
+		  z-index: 1000;
+		}
+
+    .modal-container {
+    	position: relative;
+      background: linear-gradient(45deg, #1E1E1E, #3B3B3B);
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      width: 300px;
+      z-index: 1100;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      background: linear-gradient(45deg, #e6941b, #FFD700);
+      color: #ffffff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .close-button:hover {
+      background: linear-gradient(45deg, #30A5FF, #0063E5);
+    }
+
+    #datetime {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .ScheduleButtonOverlay {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      margin-top: 10px;
+    }
+
+    .ScheduleButtonOverlay:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+
+    .mailForm {
+      background: transparent;
+    }
+
+    .pageName {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+    }
+
+    textarea {
+      margin-top: 5px;
+      padding: 10px;
+      border: 1px solid #ffffff;
+      border-radius: 5px;
+      background: transparent;
+      color: #ffffff;
+      resize: none;
+    }
+
+    .attachmentContainer {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .indiAttachment {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .indiAttachment:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+    .documentImage {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    .removeAttachment {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .buttonConatiner {
+    	width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .submitButton {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .submitButton:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+/*    hr {
+      border: none;
+      border-top: 1px solid #ffffff;
+      margin: 0;
+    }*/
+
+    .submitButtonArrow {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      margin-left: -8px;
+
+    }
+
+    .scheduleDialogButton {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .scheduleDialogButton:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+    .ButtonDraft {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .ButtonDraft:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+
+    .attachButton {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .attachButton:hover {
+      background: linear-gradient(45deg, #e6941b, #FFD700); 
+    }
+  </style>
+</head>
+<body>
+	<div class="container">
+
+		<div class="leftWrapper">
+
+			<div class="uppperHalf">
+				<div class="options">
+					<button class="option" onclick="changeOption('home')">
+						Home
+					</button>
+					<button class="option" onclick="changeOption('composeEmail')">
+						Compose Email
+					</button>
+					<button class="option" onclick="changeOption('sentEmail')">
+						Sent
+					</button>
+					<button class="option" onclick="changeOption('draftedEmail')">
+						Draft
+					</button>
+					<button class="option" onclick="changeOption('scheduledEmail')">
+						Scheduled Emails
+					</button>
+				</div>
+			</div>
+			<hr>
+			<div class="lowerHalf">
+				<div class="lowerHalfContainer">
+
+					<div class="addfolderContainer">
+						<button class="addFolderButton" onclick="showOverlay()">Add Folder</button>
+					</div>
+					<div class="folderContainer">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="overlay" id="overlay">
+	        <div class="modal">
+	        	<p class="addFolderText">Enter Folder Name</p>
+	        	<input type="text" id="addFolderInput" placeholder="Folder name" class="addFolderInput">
+	            <button onclick="addFolder()" class="addFolderButtonOverlay">Add</button>
+	            <button onclick="hideOverlay()" class="addFolderButtonOverlay">close</button>
+	        </div>
+	    </div>
+      <div class="modal-overlay">
+		    <div class="modal-container">
+		    	<button class="close-button" type="button" onclick="toggleModal()">X</button>
+		      <form id="scheduleForm">
+		        <label id="FormLabel" for="datetime">Select Date and Time:</label>
+		        <input type="datetime-local" id="datetime" name="datetime" required>
+		        <button type="button" class="ScheduleButtonOverlay" onclick="scheduleTask()">Schedule Task</button>
+		      </form>
+		    </div>
+		  </div>
+
+		<div class="rightWrapper">
+			<div class="emailLoggedIn">
+				<div class="emailLoggedInText">
+					Logged in as <b> </b>
+				</div>
+				<div class="logoutLogoContainer">
+					<img class="logoutLogo" src="Logos/logout.jpg" onclick="ipcRenderer.send('logout',[])">
+				</div>
+			</div>
+
+			<br>
+
+
+			<div class="mailForm">
+				<div class="pageName">
+					<h2>Compose Email</h2>
+				</div>
+			    <form action="#" method="post">
+			        <label for="recipient">To:</label>
+			        <textarea type="text" id="recipient" name="recipient" required></textarea>
+
+			        <label for="subject">Subject:</label>
+			        <textarea type="text" id="subject" name="subject" required></textarea>
+
+			        <label for="message">Message:</label>
+			        <textarea id="message" name="message" rows="25"></textarea>
+			        <br>
+			        <div class="attachmentContainer"></div>	
+			        <div class="buttonConatiner">
+			        	<div class="SUBMITBUTTONCONTAINER">
+					        <button class="submitButton" type="submit" onclick="sendMail()">Send</button>
+					        <!-- <vl style="border: black 2px solid;margin-left: -5px;"> -->
+					        	<hr>
+					        <img src="Logos/uparrow.png" class="submitButtonArrow" onclick="OpenscheduleEmailDialog()">
+					        <button class="scheduleDialogButton" type="button">Schedule Email</button>
+					      </div>
+				        <button class="ButtonDraft" type="button" onclick="draftMail()">Draft</button>
+						<button class="attachButton" type='button' onclick="attachment()">+</button>
+					</div>
+			    </form>
+
+			</div>
+
+		</div>
+		<div id="notification"></div>
+
+	</div>
+
+	<script src="./commonScript.js"></script>
+	<script>
+
+
+		let emailsToSendTo = [];
+		let count = 0;
+		let attachmentArray = [];
+		let mainPath;
+		let totalAttachment = 0;
+		let idToMatchAttchmentArr = [];
+		let folderList = [];
+
+		if(count === 0){
+			console.log('send data for Username')
+			ipcRenderer.send('getLogin', [] )
+			console.log('sending reqiuest to fetch Folders')
+			ipcRenderer.send('send-folderList', [])
+			count += 1
+		}
+		function changeOption(path){
+			ipcRenderer.send('changeOption',path)
+		}
+
+
+    function toggleModal() {
+    	console.log('CALLED TO TOGGLE FORM')
+      const modalOverlay = document.querySelector('.modal-overlay');
+      console.log("Current : " + modalOverlay.style.display)
+      if(modalOverlay.style.display === 'none' || modalOverlay.style.display === ''){
+      	modalOverlay.style.display = 'flex'
+      }else{
+      	modalOverlay.style.display = 'none'
+      }
+      console.log(modalOverlay.style.display)
+    }
+
+		function OpenscheduleEmailDialog(){
+			console.log('openDialog for schedule button called')
+			const scheduleDialogElement = document.querySelector('.scheduleDialogButton')
+			if(scheduleDialogElement.style.display === 'flex'){
+				scheduleDialogElement.style.display = 'none'
+				return
+			}
+
+			scheduleDialogElement.style.display = 'flex'
+			scheduleDialogElement.innerText = 'Schedule Email'
+			scheduleDialogElement.type = 'button'
+			scheduleDialogElement.onclick = openScheduleBox
+		}
+
+
+		function openScheduleBox() {
+			console.log('request to open the schedule box')
+
+			const otherElement = document.getElementById('subject')
+			const element  = document.getElementById('recipient')
+			if(element.value.length === 0 || otherElement.value.length === 0){
+				console.log('enter required fields')
+				return
+			}
+			toggleModal()
+
+
+		}
+
+		function scheduleTask(){
+			console.log('logging schedult function')
+			let datetime = document.getElementById('datetime').value;
+			if(datetime.length === 0){return}
+			console.log(datetime)
+		  const scheduledTime = new Date(datetime);
+		  const cronExpression = `${scheduledTime.getMinutes()} ${scheduledTime.getHours()} ${scheduledTime.getDate()} ${scheduledTime.getMonth() + 1} *`;
+		  console.log(scheduledTime)
+		  console.log(cronExpression)
+
+		  toggleModal()
+		  document.querySelector('.scheduleDialogButton').style.display = 'none'
+
+
+			if(! isTimeInFuture(scheduledTime)){
+				showNotificationTimeOut('Unfortunately sending Mails to past has not been added yet.')
+				return
+			}
+		  const recipient = document.getElementsByName('recipient')[0].value
+			const subject  = document.getElementsByName('subject')[0].value
+			const message = document.getElementsByName('message')[0].value
+
+
+			const finalPayload = JSON.stringify([cronExpression,recipient, subject, message, attachmentArray])
+		  ipcRenderer.send('scheduleMail', btoa(finalPayload))
+
+		  datetime = datetime.split('T')
+		  showNotificationTimeOut('Email scheduled to be sent on ' + datetime[0] + " at " + datetime[1])
+
+		}
+
+		function sendMail(){
+			const hasEmail = false;
+			const otherElement = document.getElementById('subject')
+			const element  = document.getElementById('recipient')
+			if(element.value.length === 0 || otherElement.value.length === 0){
+				showNotificationTimeOut('Enter the required fields')
+				return
+			}
+
+
+			console.log('sending mail')
+			const recipient = document.getElementsByName('recipient')[0].value
+			const subject  = document.getElementsByName('subject')[0].value
+			const message = document.getElementsByName('message')[0].value
+			
+
+			ipcRenderer.send('sendMail',[recipient,subject,message,attachmentArray])
+			
+		}
+
+		function draftMail(){
+
+
+			let recipient = document.getElementsByName('recipient')[0].value
+			let subject  = document.getElementsByName('subject')[0].value
+			let message = document.getElementsByName('message')[0].value
+			console.log(recipient,subject,message)			
+
+			ipcRenderer.send('addToDraft',[recipient,subject,message])
+
+			recipient = document.getElementsByName('recipient')[0]
+			subject  = document.getElementsByName('subject')[0]
+			message = document.getElementsByName('message')[0]
+			recipient.value = ''
+			subject.value = ''
+			message.value = ''
+			showNotificationTimeOut('Added to draft')
+		}
+
+		function dataFromDraft(data){
+			console.log('inside compose email')
+			console.log('received data' + data)
+			let mainData = JSON.parse(atob(data))
+			console.log("decrypted Data")
+			console.log(mainData)
+			const recipient = document.getElementById('recipient')
+			const subject  = document.getElementById('subject')
+			const message = document.getElementById('message')
+			console.log(mainData.body, mainData.from, mainData.to)
+			recipient.value = mainData.to === '(No recipient)' ? '' : mainData.to
+			subject.value = mainData.subject === '(No subject)' ? '' : mainData.subject
+			message.value = mainData.body === mainData.body
+		}
+
+		function updateData(data){
+			let string = ''
+			const allemails = data.split(',')
+			allemails.forEach(email => {
+				string += email + ' '
+			})
+			const inputElement = document.getElementById('recipient')
+			inputElement.value = string
+		}
+
+
+		function updateUsername(data){
+			const usernameElement = document.querySelector('.emailLoggedInText')
+			usernameElement.innerText = "Logged in as: " + data
+		}
+
+		function attachment(){
+			ipcRenderer.send('openDialog', [])
+
+			// ipcRenderer.send('sendPath',[])
+			// console.log(mainPath)
+		}
+
+
+		function showAttachment(path){
+			const bigContainer = document.querySelector('.attachmentContainer')
+
+			const [fullPath,fileName] = path.split(',')
+			const oneAttachment = document.createElement('div')
+			oneAttachment.className = 'indiAttachment'
+			oneAttachment.id = totalAttachment
+			const para = totalAttachment
+			oneAttachment.onclick = function (){handleButtonClick(para)}
+			console.log('activated by any file path')
+			const element = document.querySelector('indiAttachment')
+			const item = document.createElement('img')
+			item.src = 'Logos/document.jpg'
+			item.className = 'documentImage'
+			const itemName = document.createElement('span')
+			itemName.className = 'documentName'
+			itemName.innerText = fileName
+			const crossAttach = document.createElement('div')
+			crossAttach.className = 'removeAttachment'
+			crossAttach.innerText = 'X'
+			oneAttachment.appendChild(item)
+			oneAttachment.appendChild(itemName)
+			oneAttachment.appendChild(crossAttach)
+			bigContainer.appendChild(oneAttachment)
+			attachmentArray.push(fullPath)
+			idToMatchAttchmentArr.push(totalAttachment)
+			console.log(attachmentArray)
+			console.log(idToMatchAttchmentArr)
+			totalAttachment += 1
+		}
+
+		function handleButtonClick(id){
+			const clickedButtonId = id;
+			console.log(clickedButtonId)
+			console.log(idToMatchAttchmentArr)
+			const index = idToMatchAttchmentArr.indexOf(id)
+
+			attachmentArray.splice(index, 1);
+			idToMatchAttchmentArr.splice(index,1);
+			console.log(attachmentArray)
+			console.log(idToMatchAttchmentArr)
+			const attachmentToBeRemoved = document.getElementById(clickedButtonId)
+			attachmentToBeRemoved.parentNode.removeChild(attachmentToBeRemoved)
+		}
+
+		function addPath(path){
+			mainPath = path;
+		}
+
+		function showOverlay() {
+		    document.getElementById('overlay').style.display = 'flex';
+		}
+
+		function hideOverlay() {
+		    document.getElementById('overlay').style.display = 'none';
+		}
+
+		function addFolder() {
+			console.log('adding folder')
+			console.log('before adding')
+			console.log(folderList)
+			const element = document.getElementById('addFolderInput')
+			const folderName = element.value
+			if(folderName.length === 0){
+			    document.getElementById('overlay').style.display = 'none';
+				return
+			}
+		    updateFolderList()
+			const folderContainerElement = document.querySelector('.folderContainer')
+			const folderElement = document.createElement('button')
+			folderElement.className = 'folderTextButton'
+			folderElement.innerText = folderName
+			const Id = 'F' + folderList.length
+			folderElement.id = Id
+			folderElement.addEventListener('mousedown', function(event) {handlefolderClick(event,Id)});
+			folderContainerElement.appendChild(folderElement)
+		    document.getElementById('overlay').style.display = 'none';
+
+		    const folderId = Id; 
+		    const folderContent = {
+		    	name: folderName,
+		    	emailList: ['test']
+		    }
+		    const toPush = {
+		    	Id: folderId,
+		    	content: folderContent
+		    }
+		    folderList.push(toPush)
+		    console.log('after adding')
+		    console.log(folderList)	
+		    updateFolderList()
+
+		    showNotificationTimeOut('Added folder ' + folderContent.name)
+		    console.log('sending request to update Folder name')
+		    ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+		}
+
+		function updateFolderList(){  // THIS ASSIGNS NEW ID TO ALL FOLDERS and renders list
+			console.log('now updating the folder list')
+			let count = 0;
+			const folderContainerElement = document.querySelector('.folderContainer')
+			folderContainerElement.innerHTML = ''
+			folderList.forEach((folderData) => {
+
+		        const indiFoldercontainer = document.createElement('div')
+                indiFoldercontainer.className = 'indiFoldercontainder'
+
+				const folderElement = document.createElement('button')
+				folderElement.className = 'folderTextButton'
+				const folderName = folderData['content']['name']
+				folderElement.innerText = folderData['content']['name']
+				const Id = 'F' + count
+				folderElement.id = Id
+				folderElement.addEventListener('mousedown', function(event) {handlefolderClick(event,Id)});
+				indiFoldercontainer.appendChild(folderElement)
+				const deleteImgElement = document.createElement('img')
+		        deleteImgElement.src = 'Logos/delete.png'
+		        deleteImgElement.className = 'folderDeleteImg'
+		        deleteImgElement.addEventListener('click', function(event){deleteFolder(event,Id)})
+		        indiFoldercontainer.appendChild(deleteImgElement)
+
+				folderContainerElement.appendChild(indiFoldercontainer)
+			    document.getElementById('overlay').style.display = 'none';
+		    	count += 1
+			})
+		
+
+			console.log('update Folder List')
+			console.log(folderList)
+
+		    // console.log('sending request to update Folder name')
+		    // ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+		}
+
+		function showOverlayEmail(){
+			document.getElementById('addEmailInput').value = '';
+		    document.getElementById('overlayEmail').style.display = 'flex';
+
+		}
+
+		function showOverlay() {
+			document.getElementById('addFolderInput').value = '';
+		    document.getElementById('overlay').style.display = 'flex';
+		}
+
+		function hideOverlay() {
+		    document.getElementById('overlay').style.display = 'none';
+		}
+
+		function updateFolders(data){ // this assigns value to list
+			console.log(data)
+			let newData = atob(data)
+			console.log(newData)
+			newData = JSON.parse(newData)
+			console.log(newData)
+			folderList = newData
+			updateFolderList() // this renders the list
+		}
+
+
+		function handlefolderClick(event,id){
+			console.log(id)
+			console.log('sending request to show folder fontent for ' + id)
+			ipcRenderer.send('showFolderContent', id)
+		}
+
+
+		function updateUsername(data){
+			const usernameElement = document.querySelector('.emailLoggedInText')
+			usernameElement.innerText = "Logged in as: " + data
+		}
+
+		function isTimeInFuture(timeString) {
+		  // Parse the input time string
+		  const inputTime = new Date(timeString);
+
+		  // Get the current time
+		  const currentTime = new Date();
+
+		  // Compare the input time with the current time
+		  return inputTime > currentTime;
+		}
+
+
+
+		
+	</script>
+</body>
+</html>

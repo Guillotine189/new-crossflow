@@ -1,0 +1,472 @@
+@keyframes glow {
+  0% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  }
+  50% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+  }
+  100% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  }
+}
+
+
+.body, html{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.container{
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	left: 0%;
+	top: 0%;
+
+}
+
+.leftWrapper{
+	width: 100%;
+	margin: 0;
+	height: 100vh;
+	padding: 0;
+	flex: 2;
+	border: 2px black solid;
+}
+
+.uppperHalf{
+	width: 100%;
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+
+.options{
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.option{
+	cursor: pointer;
+	font-size: 18px;
+	width: 100%;
+	border: none;
+	border-radius: 10%;
+  margin: 5px;
+  padding: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.option:hover{
+	opacity: 0.8;
+	background-color: #2980b9;
+	animation: glow 1s infinite;
+}
+
+.option:active{
+	opacity: 0.6;
+}
+
+
+.lowerHalf{
+	width: 100%;
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+
+.lowerHalfContainer{
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.indiFoldercontainder{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.addfolderContainer{  // folder container
+	display: flex;
+	justify-content: center;
+	margin: 10px 10px 20px 10px;
+}
+
+
+.addFolderButton{
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	border-radius: 10%;
+	  margin: 5px;
+	  padding: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.addFolderButton:hover{
+	opacity: 0.8;
+	background-color: #dbf2d3;
+	animation: glow 1s infinite;
+}
+
+.addFolderButton:active{
+	opacity: 0.6;
+}
+
+.folderDeleteImg{
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+}
+
+
+
+
+.folderTextButton{
+	font-size: 18px;
+	width: 100%;
+	border: none;
+	border-radius: 10%;
+  margin: 5px;
+  padding: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.folderTextButton:hover{
+	opacity: 0.8;
+	background-color: #2980b9;
+	animation: glow 1s infinite;
+}
+
+.folderTextButton:active{
+	opacity: 0.6;
+}
+
+
+/*.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+*/
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.addFolderText{
+	margin-top: -10px;
+	font-size: 19px;
+	font-weight: 600;
+	padding: 7px;
+	border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -10px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -10px rgba(0,0,0,0.68);
+
+}
+
+.addFolderInput{
+	width: 80%;
+	border: none;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 5px;
+	webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+}
+
+.addFolderInput:focus{
+	outline: none;
+}
+
+.addFolderButtonOverlay {
+  width: 60%;
+  margin: 10px;
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+
+}
+
+
+.rightWrapper{
+	flex: 6;
+/*	align-items: center;*/
+	justify-content: center;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.emailLoggedIn{
+	margin-top: 10px;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	webkit-box-shadow: 0px 0px 16px -5px rgba(0,0,0,0.68);
+  	box-shadow: 0px 0px 16px -5px rgba(0,0,0,0.68);
+}
+
+.emailLoggedInText{
+	font-size: 17px;
+	margin-top: 15px;
+}
+
+.pageName{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.mailForm {
+    width: 100%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+	webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+  	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+textarea {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/*.buttonConatiner{
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+}
+*/
+
+.SUBMITBUTTONCONTAINER{
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #4caf50;
+}
+
+hr{
+  height: 20px;
+  width: 2px;
+  border-width:0;
+  background-color: lightgrey;
+  margin-right: 8px;
+}
+
+
+.submitButton {
+    background-color: transparent;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+.scheduleDialogButton{
+	position: absolute;
+	display: none;
+	top: 90%;
+	left: 85%;
+	border: none;
+	padding: 5px;
+}
+
+.scheduleDialogButton:hover{
+	background-color: lightgrey;
+	opacity: 0.8;
+	animation: glow 1s infinite;
+}
+
+.ButtonDraft {
+    background-color: #eda737;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.Button:hover {
+    background-color: #45a049;
+}
+
+.attachButton{
+	width: 40px;
+	height: 30px;
+}
+/*
+.attachmentContainer{
+	display: flex;
+	justify-content: space-around;
+	width: 90%;
+	flex-wrap: wrap;
+}
+
+
+.indiAttachment{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	padding: 5px;
+	width: 60px;
+}
+
+.documentImage{
+	height: 25px;
+	width: 25px;
+	border: none;
+}
+
+.documentName{
+	display: inline-block;
+	max-width: 7ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 20px;
+	width: 60px;
+	font-size: 15px;
+}*/
+
+/*.removeAttachment{
+	position: absolute;
+	border-radius: 75%;
+	border: none;
+	height: 16px;
+	width: 13px;
+	padding: 3px;
+	left: 38%;
+	top: 0%;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+}
+*/
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+
+/*.modal-overlay{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}*/
+
+/*.modal-container {
+  background-color: linear-gradient(45deg, #1E1E1E, #3B3B3B);;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1100;
+}*/
+
+#scheduleForm{
+  max-width: 400px;
+  margin: auto;
+}
+
+#FormLabel{
+  display: block;
+  margin-bottom: 8px;
+}
+
+#datetime{
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.ScheduleButtonOverlay{
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.ScheduleButtonOverlay:hover {
+  background-color: #45a049;
+}
+/*
+.close-button {
+  position: absolute;
+  top: 43%;
+  right: 36%;
+  background-color: #f44336;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #d32f2f;
+}*/

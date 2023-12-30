@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./choose.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>Choose Your Email</title>
+    <style>
+        .skipButton{
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: 400;
+            background: transparent;
+        }
+        .skipButton:hover{
+            text-decoration: underline;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>CrossFlow</h1>
+    <div class="boxContainer">
+        <div class="box animate__animated animate__fadeIn">
+            <div class="bigTextClass">
+                <h2 class="bigText">Select Your Preferred Email Platform</h2>
+            </div>
+            <div class="options">
+                <ul class="optionList">
+                    <li class="option">
+                        <button class="Buttons" onclick="changePage('Google')">
+                            Gmail
+                            <img class='Logos' src="./Logos/GmailLogo.png" alt="Gmail Logo">
+                        </button>
+                    </li>
+                    <li class="option">
+                        <button class="Buttons" onclick="changePage('Outlook')">
+                            Outlook
+                            <img class="Logos" src="./Logos/OutlookLogo.png" alt="Outlook Logo">
+                        </button>
+                    </li>
+                    <li class="option">
+                        <button class="Buttons" onclick="changePage('Yahoo')">
+                            Yahoo
+                            <img class="Logos" src="./Logos/YahooLogo.jpeg" alt="Yahoo Logo">
+                        </button>
+                    </li>
+                        <button class="skipButton" onclick="skipLogin()">skip</button>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.changePage = (pageTo) => {
+            ipcRenderer.send('navigate',(pageTo))
+        }
+
+        function skipLogin(){
+            ipcRenderer.send('skipLogin',[])
+        }
+    </script>
+</body>
+</html>

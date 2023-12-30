@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./showEmail.css">
+  <link rel="stylesheet" type="text/css" href="./commoncss.css">
+  <title></title>
+    <style>
+/*    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(180deg, #001E3D, #00274E); 
+      color: #ffffff;
+      border: 5px solid #e0e6ec; 
+    }*/
+
+    .container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .leftWrapper {
+      overflow-x: hidden;
+      background: linear-gradient(45deg, #1E1E1E, #3B3B3B); 
+      color: #ffffff;
+      overflow-y: auto;
+      transition: background 0.5s ease-in-out;
+      flex: 1;
+    }
+
+    .rightWrapper {
+      flex: 2.4;
+      overflow-y: auto;
+    }
+
+    .uppperHalf {
+      padding: 10px;
+      border-bottom: 1px solid #ffffff;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .option {
+      background: linear-gradient(45deg, #30A5FF, #0063E5);
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .option:hover {
+      background: linear-gradient(45deg, #e6941b, #c48d27);
+    }
+
+    .lowerHalf {
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .addFolderButton {
+      margin-left: -10px;
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .addFolderButton:hover {
+      background: linear-gradient(45deg, #e6941b, #c48d27); 
+    }
+
+    .folderTextButton {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .folderTextButton:hover {
+      background: linear-gradient(45deg, #e6941b, #c48d27); 
+    }
+
+    .overlay {
+      display: none;
+    }
+
+    .modal {
+      background: linear-gradient(45deg, #1E1E1E, #3B3B3B); 
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .addFolderButtonOverlay {
+      background: linear-gradient(45deg, #30A5FF, #0063E5);
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      margin-right: 10px;
+    }
+
+    .addFolderButtonOverlay:hover {
+      background: linear-gradient(45deg, #e6941b, #c48d27); 
+    }
+
+    .rightWrapper {
+      height: 100vh;
+      background: linear-gradient(180deg, #00274E, #001223); 
+      color: #ffffff;
+      overflow-y: hidden;
+      padding: 20px;
+      transition: background 0.5s ease-in-out;
+    }
+
+    .emailLoggedIn {
+      padding: 10px;
+      border-bottom: 1px solid #ffffff;
+    }
+
+    .email-container {
+      background: linear-gradient(45deg, #1E1E1E, #3B3B3B); 
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      transition: background 0.5s ease-in-out;
+    }
+
+    .attachmentContainer {
+      margin-top: 10px;
+      color: #ffffff;
+    }
+
+    .attachmetText {
+      margin-right: 10px;
+    }
+
+    .attachments {
+      display: flex;
+      gap: 10px;
+    }
+
+    .attachment {
+      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+      color: #ffffff;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .attachment:hover {
+/*      background: linear-gradient(45deg, #e6941b, #c48d27); */
+    }
+
+    .addFolderText,
+    .senderEmail,
+    .sentToEmail,
+    .dateEmail,
+    .subjectEmail {
+      color: #ffffff;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="leftWrapper">
+
+      <div class="uppperHalf">
+        <div class="options">
+          <button class="option" onclick="changeOption('home')">
+            Home
+          </button>
+          <button class="option" onclick="changeOption('composeEmail')">
+            Compose Email
+          </button>
+          <button class="option" onclick="changeOption('sentEmail')">
+            Sent
+          </button>
+          <button class="option" onclick="changeOption('draftedEmail')">
+            Draft
+          </button>
+          <button class="option" onclick="changeOption('scheduledEmail')">
+            Scheduled Emails
+          </button>
+        </div>
+      </div>
+      <hr>
+      <div class="lowerHalf">
+        <div class="lowerHalfContainer">
+
+          <div class="addfolderContainer">
+            <button class="addFolderButton" onclick="showOverlay()">Add Folder</button>
+          </div>
+          <div class="folderContainer">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="overlay" id="overlay">
+          <div class="modal">
+            <p class="addFolderText">Enter Folder Name</p>
+            <input type="text" id="addFolderInput" placeholder="Folder name" class="addFolderInput">
+              <button onclick="addFolder()" class="addFolderButtonOverlay">Add</button>
+              <button onclick="hideOverlay()" class="addFolderButtonOverlay">close</button>
+          </div>
+      </div>
+
+    <div class="rightWrapper">
+
+      <div class="emailLoggedIn">
+        <div class="emailLoggedInText">
+          Logged in as <b>Something</b>
+        </div>
+        <div class="logoutLogoContainer">
+          <img class="logoutLogo" src="Logos/logout.jpg" onclick="ipcRenderer.send('logout',[])">
+        </div>
+      </div>
+
+      <div class="email-container">
+
+        <!-- 
+        // <div class="headerEmail"></div>
+
+        // <div class="bodyEmail">
+        //   <p class="senderEmail">From: John Doe &lt;john.doe@example.com&gt;</p>
+        //   <p class="sentToEmail">To: John Doe &lt;john.doe@example.com&gt;</p>
+        //   <p class="dateEmail">On: 20 dec</p>
+        //   <p class="subjectEmail">Subject: Your Subject Here</p>
+        //   <div class="messageEmail">
+        //     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+        //   </div>
+        //   <div class="attachmentContainer">
+      //        <span class="attachemtText"></span>
+        //      <div class="attachments">
+    //             <button class="attachment"></button>
+    //          </div>
+        //   </div>
+        // </div>
+
+        // <div class="footerEmail"></div> -->
+
+
+      </div>
+
+    </div>
+    <div id="notification"></div>
+  </div>
+  <script src="./commonScript.js"></script>
+  <script>
+
+    let total_time = 0;
+    let emialdata;
+    let folderList = [];
+
+
+    function changeOption(path){
+      console.log('sending request for changing option')
+      ipcRenderer.send('changeOption',path)
+      console.log('sending reqiuest to fetch Folders')
+      ipcRenderer.send('send-folderList', [])
+      return
+    }
+
+    if(total_time === 0){
+      console.log('Sending request for login')
+      ipcRenderer.send('getLogin')
+      console.log('sending reqiuest to fetch Folders')
+      ipcRenderer.send('send-folderList', [])
+      total_time += 1
+    }
+
+    function updateEmail(){
+      console.log('updateing email')
+
+      const EmailConatainer = document.querySelector('.email-container')
+      EmailConatainer.innerHTML = ''
+
+      const headerElement = document.createElement('div')
+      headerElement.className = 'headerEmail'
+
+
+      const bodyElement = document.createElement('div')
+      bodyElement.className = 'bodyEmail'
+      const senderElement = document.createElement('p')
+      senderElement.className = 'senderEmail'
+      senderElement.innerText = "FROM : " + emailData['from']               // FROM
+      const sentToElement = document.createElement('p')
+      sentToElement.className = 'sentToEmail'
+      sentToElement.innerText = "TO : " + emailData['to']               // TO
+      const dateElement = document.createElement('p')
+      dateElement.className = 'dateEmail'
+      dateElement.innerText = "DATE : " + emailData['date']              // date
+      const subjectElement = document.createElement('p')
+      subjectElement.className = 'subjectEmail'
+      subjectElement.innerText = "SUBJECT : " + emailData['subject']             // subject
+      const textElementContainer = document.createElement('div')
+      textElementContainer.className = 'messageEmail'
+      const textElement = document.createElement('p')
+      textElement.innerText = emailData['text']                   // body/text
+      textElementContainer.appendChild(textElement)
+
+      const attachmentElement = document.createElement('div')
+      attachmentElement.className = 'attachmentContainer'
+      const attachmentText = document.createElement('span')
+      attachmentText.className = 'attachmetText'
+      attachmentText.innerText = 'Attachments: '
+
+      const attachments = document.createElement('div')
+      attachments.className = 'attachments'
+      if(emailData['attachments']){
+        emailData['attachments'].forEach((individualAttachment) =>{
+          const attachment = document.createElement('button')
+          attachment.className = 'attachment'
+          attachment.innerText = individualAttachment
+          attachments.appendChild(attachment)
+        })
+        attachmentElement.appendChild(attachmentText)
+        attachmentElement.appendChild(attachments)
+      }
+
+      bodyElement.appendChild(senderElement)
+      bodyElement.appendChild(sentToElement)
+      bodyElement.appendChild(dateElement)
+      bodyElement.appendChild(subjectElement)
+      bodyElement.appendChild(textElementContainer)
+      bodyElement.appendChild(attachmentElement)
+
+      const footerElement = document.createElement('div')
+      footerElement.className = 'footerEmail'
+
+      EmailConatainer.appendChild(headerElement)
+      EmailConatainer.appendChild(bodyElement)
+      EmailConatainer.appendChild(footerElement)
+
+    }
+
+
+    function emailData(data){
+      console.log('received data')
+      console.log(data)
+      console.log(atob(data))
+      emailData = atob(data)
+      emailData = JSON.parse(emailData)
+      updateEmail()
+    }
+
+    function addFolder() {
+      console.log('adding folder')
+      console.log('before adding')
+      console.log(folderList)
+      const element = document.getElementById('addFolderInput')
+      const folderName = element.value
+      if(folderName.length === 0){
+          document.getElementById('overlay').style.display = 'none';
+        return
+      }
+      updateFolderList()
+      const folderContainerElement = document.querySelector('.folderContainer')
+      const folderElement = document.createElement('button')
+      folderElement.className = 'folderTextButton'
+      folderElement.innerText = folderName
+      const Id = 'F' + folderList.length
+      folderElement.id = Id
+      folderElement.addEventListener('mousedown', function(event) {handlefolderClick(event,Id)});
+      folderContainerElement.appendChild(folderElement)
+        document.getElementById('overlay').style.display = 'none';
+
+        const folderId = Id; 
+        const folderContent = {
+          name: folderName,
+          emailList: ['test']
+        }
+        const toPush = {
+          Id: folderId,
+          content: folderContent
+        }
+        folderList.push(toPush)
+        console.log('after adding')
+        console.log(folderList) 
+        updateFolderList()
+
+        showNotificationTimeOut('Added folder ' + folderContent.name)
+        console.log('sending request to update Folder name')
+        ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+    }
+
+
+    function updateFolderList(){  // THIS ASSIGNS NEW ID TO ALL FOLDERS and renders list
+      console.log('now updating the folder list')
+      let count = 0;
+      const folderContainerElement = document.querySelector('.folderContainer')
+      folderContainerElement.innerHTML = ''
+      folderList.forEach((folderData) => {
+
+        const indiFoldercontainer = document.createElement('div')
+        indiFoldercontainer.className = 'indiFoldercontainder'
+
+        const folderElement = document.createElement('button')
+        folderElement.className = 'folderTextButton'
+        const folderName = folderData['content']['name']
+        folderElement.innerText = folderData['content']['name']
+        const Id = 'F' + count
+        folderElement.id = Id
+        folderElement.addEventListener('mousedown', function(event) {handlefolderClick(event,Id)});
+        indiFoldercontainer.appendChild(folderElement)
+        const deleteImgElement = document.createElement('img')
+            deleteImgElement.src = 'Logos/delete.png'
+            deleteImgElement.className = 'folderDeleteImg'
+            deleteImgElement.addEventListener('click', function(event){deleteFolder(event,Id)})
+            indiFoldercontainer.appendChild(deleteImgElement)
+
+        folderContainerElement.appendChild(indiFoldercontainer)
+          document.getElementById('overlay').style.display = 'none';
+          count += 1
+      })
+    
+
+      console.log('update Folder List')
+      console.log(folderList)
+
+        // console.log('sending request to update Folder name')
+        // ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+    }
+
+    function handlefolderClick(event,id){
+      console.log(id)
+      console.log('sending request to show folder content for ' + id)
+      ipcRenderer.send('showFolderContent', id)
+    }
+
+    function showOverlay() {
+        document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function hideOverlay() {
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+
+    function updateFolders(data){ // this assigns value to list
+      console.log(data)
+      let newData = atob(data)
+      console.log(newData)
+      newData = JSON.parse(newData)
+      console.log(newData)
+      folderList = newData
+      updateFolderList() // this renders the list
+    }
+
+    function updateUsername(data){
+      const usernameElement = document.querySelector('.emailLoggedInText')
+      usernameElement.innerText = "Logged in as: " + data
+    }
+
+  </script>
+
+</body>
+</html>
+
+
+
+<!--  -->

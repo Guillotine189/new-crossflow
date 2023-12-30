@@ -1,0 +1,712 @@
+@keyframes glow {
+  0% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  }
+  50% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+  }
+  100% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  }
+}
+
+
+.body, html{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.container{
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	left: 0%;
+	top: 0%;
+
+}
+
+.leftWrapper{
+	width: 100%;
+	margin: 0;
+	height: 100vh;
+	padding: 0;
+	flex: 2;
+	border: 2px black solid;
+}
+
+.uppperHalf{
+	width: 100%;
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+
+.options{
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.option{
+	cursor: pointer;
+	font-size: 18px;
+	width: 100%;
+	border: none;
+	border-radius: 10%;
+  margin: 5px;
+  padding: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.option:hover{
+	opacity: 0.8;
+	background-color: #2980b9;
+	animation: glow 1s infinite;
+}
+
+.option:active{
+	opacity: 0.6;
+}
+
+
+.lowerHalf{
+	width: 100%;
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+
+.lowerHalfContainer{
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.indiFoldercontainder{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.addfolderContainer{  // folder container
+	display: flex;
+	justify-content: center;
+	margin: 10px 10px 20px 10px;
+}
+
+.addFolderButton{
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	border-radius: 10%;
+  margin: 5px;
+  padding: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.addFolderButton:hover{
+	opacity: 0.8;
+	background-color: #dbf2d3;
+	animation: glow 1s infinite;
+}
+
+.addFolderButton:active{
+	opacity: 0.6;
+}
+
+.folderDeleteImg{
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+}
+
+
+.folderTextButton{  // add folder button
+	cursor: pointer;
+	font-size: 18px;
+	width: 100%;
+	border: none;
+	border-radius: 10%;
+  margin: 5px;
+  padding: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.folderTextButton:hover{
+	opacity: 0.8;
+	background-color: #2980b9;
+	animation: glow 1s infinite;
+}
+
+.folderTextButton:active{
+	opacity: 0.6;
+}
+
+
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.addFolderText{
+	margin-top: -10px;
+	font-size: 19px;
+	font-weight: 600;
+	padding: 7px;
+	border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -10px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -10px rgba(0,0,0,0.68);
+
+}
+
+.addFolderInput{
+	width: 80%;
+	border: none;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 5px;
+	webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+}
+
+.addFolderInput:focus{
+	outline: none;
+}
+
+.addFolderButtonOverlay {
+  width: 60%;
+  margin: 10px;
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+
+}
+
+.overlayEmail {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modalEmail {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.addEmailText{
+	margin-top: -10px;
+	font-size: 19px;
+	font-weight: 600;
+	padding: 7px;
+	border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -10px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -10px rgba(0,0,0,0.68);
+
+}
+
+.addEmailInput{
+	font-size: 20px;
+	width: 80%;
+	border: none;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 5px;
+	webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+}
+
+.addEmailInput:focus{
+	outline: none;
+}
+
+.addEmailButtonOverlay {
+  width: 60%;
+  margin: 10px;
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+
+}
+
+/*.overlayAddToFolder {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); 
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.modalAddToFolder {
+	background-color: #2b5876;
+/*  background: background: linear-gradient(135deg, #2b5876, #4e4376);;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 250px;
+  padding: 100px 20px 40px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+	overflow-y: scroll;
+}
+
+.addToFolderText{
+	margin: 0;
+	font-size: 19px;
+	font-weight: 600;
+	padding: 1px;
+	width: 60%;
+	border-radius: 10px;
+
+}
+
+.addToFolderButtonContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 60%;
+  margin: 10px;
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+
+}
+
+.addToFolderButton{
+  width: 60%;
+  margin: 10px;
+  padding: 5px;
+  font-size: 17px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+}*/
+
+
+.addToFolderCloseButton,
+ .addToFolderAddButton{
+	background: linear-gradient(135deg, #2b5876, #4e4376);
+  font-size: 20px;
+	width: 60%;
+  margin: 10px;
+  padding: 5px;
+  height: 30px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+
+}
+.addToFolderCloseButton:hover,
+ .addToFolderAddButton:hover{
+	background: linear-gradient(45deg, #e94e77, #9a8478);
+}
+
+.content {
+  padding: 20px;
+}
+
+.overlayAddToFolder {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 1;
+}
+
+.modalAddToFolder {
+	background: linear-gradient(135deg, #203a43, #2c5364);
+	display: flex;
+	flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+/*  background: white;*/
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+}
+
+/* Optional: Style the modal content */
+.modal-content {
+  text-align: center;
+}
+
+.addToFolderButton {
+
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin: 3px;
+}
+
+.addToFolderButton:hover {
+  background-color: #45a049;
+}
+
+
+.pageNameContainer{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 10px -10px 10px;
+	padding: 10px;
+}
+.pageNameText{
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.rightWrapper{
+	flex: 6;
+/*	align-items: center;*/
+	justify-content: center;
+	overflow: scroll;
+}
+
+.emailLoggedIn{
+	margin-top: 10px;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+}
+
+.emailLoggedInText{
+	font-size: 17px;
+	margin-top: 15px;
+}
+
+
+.selectButtonContainer{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.78);
+}
+
+.addEmail{
+	margin-right: 10px;
+	border: none;
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 5px;
+	cursor: pointer;
+	transition: border 0.2s, opacity 0.1s, background-color 0.1s;
+}
+
+.addEmail:hover{
+	border: 1px solid black;
+	background-color: #dbf2d3;
+}
+
+.addEmail:active{
+	opacity: 0.6;
+	border: 2px solid black;
+}
+
+
+.selectAllButton{
+	margin-right: 10px;
+	border: none;
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 5px;
+	cursor: pointer;
+	transition: border 0.2s, opacity 0.1s, background-color 0.1s;
+}
+
+.selectAllButton:hover{
+	border: 1px solid black;
+	background-color: #dbf2d3;
+}
+
+.selectAllButton:active{
+	opacity: 0.6;
+	border: 2px solid black;
+}
+
+.addcsv{
+	margin-right: 10px;
+	border: none;
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 5px;
+	cursor: pointer;
+	transition: border 0.2s, opacity 0.1s, background-color 0.1s;
+}
+
+.addcsv:hover{
+	border: 1px solid black;
+	background-color: #dbf2d3;
+}
+
+.addcsv:active{
+	opacity: 0.6;
+	border: 2px solid black;
+}
+
+.deselectAllButton{
+	margin-right: 10px;
+	border: none;
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 5px;
+	cursor: pointer;
+	transition: border 0.2s, opacity 0.1s, background-color 0.1s;
+}
+
+.deselectAllButton:hover{
+	border: 1px solid black;
+	background-color: #d5e5ed;
+}
+
+.deselectAllButton:active{
+	opacity: 0.6;
+	border: 2px solid black;
+}
+
+
+
+.addNewEmail{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+
+.addEmailInput{
+	border: 2px sold black;
+	border-radius: 0;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+}
+
+.addEmailButton{
+	border: none;
+	height: 35px;
+	width: 70px;
+	border-radius: 10px;
+	margin-top: 10px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+
+.addEmailButton:focus{
+	outline: none;
+}
+
+
+.addEmailButtonX{
+	border: none;
+	height: 25px;
+	width: 25px;
+	border-radius: 70%;
+	margin-top: 10px;
+	padding: 1px;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+}
+
+
+
+/*
+.searchBarContainer{
+	position: relative;
+	margin: 10px 20px 0 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/*	border: 2px black solid;*/
+/*	display: flex;*/
+/*}*/
+/*
+.searchBar{
+	border: none;
+	width: 90%;
+	height: 35px;
+	cursor: text;
+	background: transparent;
+	color: white;
+}*/
+
+.searchBar:focus{
+	outline: none;
+}
+
+.searchLogo{
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+	left: 93%;
+}
+
+.selectedMailTextContainer{
+	display: flex;
+	width: 90%;
+	margin: 10px 20px 10px 20px;
+	justify-content: center;
+	position: sticky;
+	top: 0;
+	background-color: white;
+	webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.68);
+}
+
+.selectedMailText{
+	padding: 10px;
+	font-weight: 500;
+	font-size: 17px;
+}
+
+
+.rightWrapperText{
+	padding: 10px;
+	font-size: 40px;
+	align-items: center;
+}
+
+
+.name-list {
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+	webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+}
+
+.name-item {
+	width: 95%;
+	border: none;
+	border-radius: 10%;
+  margin: 10px;
+  padding: 10px;
+  font-size: 25px;
+  color: #333;
+  cursor: pointer;
+  background-color: #d5e5ed;
+  transition: border 0.2s, opacity 0.2s;
+}
+
+.name-item:hover{
+	opacity: 0.9;
+}
+.name-item:active{
+	opacity: 0.7;
+	border: 1px solid black;
+}
+
+
+
+
+.dialog-container {
+  display: none;
+  position: absolute;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dialog-container li button{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	margin-bottom: 10px;
+	border: none;
+	padding: 5px;
+	cursor: pointer;
+}
+

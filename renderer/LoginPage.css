@@ -1,0 +1,119 @@
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+
+.boxContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(180deg, #00274E 0%, #001223 100%); 
+}
+
+
+.box {
+    background: linear-gradient(45deg, #FF6A00, #FFD700); 
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+
+.bigText {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: rgb(4, 4, 4); 
+}
+
+
+.input_box1,
+.input_box2 {
+	font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.buttonContainer{
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.save_button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.backButton{
+    background-color: #4c8ffc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+
+/*BELOW CONTAINS THE CSS FOR ANIMATION*/
+/*BELOW CONTAINS THE CSS FOR ANIMATION*/
+/*BELOW CONTAINS THE CSS FOR ANIMATION*/
+/*BELOW CONTAINS THE CSS FOR ANIMATION*/
+
+#notificationSpinning {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+#loading-spinner {
+  display: inline-block;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #fff;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#notification {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+  animation: 1s linear infinite;
+}
+
+#notification-text{
+	margin-top: 5px;
+}

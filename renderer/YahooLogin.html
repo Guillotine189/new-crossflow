@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Email Client</title>
+	<link rel="stylesheet" type="text/css" href="./LoginPage.css">
+</head>
+<body>
+    <div class="boxContainer" id="boxContainer">
+        <div class="box" id="loginBox">
+            <div class="bigText" name='text'>
+				Enter Your Yahoo Id and Password
+            </div>
+            <input type="text" placeholder="Username" name="UsernameYahoo" class="input_box1" required>
+            <input type="password" placeholder="Password" name="PasswordYahoo" class="input_box2" required>
+			<div class="buttonContainer">
+				<button class="backButton" onclick="chooseEmail()">back</button>
+				<button class="save_button" onclick='authenticateYahoo();'>Save</button>
+			</div>
+        </div>
+    </div>
+
+    <!-- FROM HERER -->
+    <div id="notificationSpinning">
+	    <div id="loading-spinner"></div>
+	    <span id="notification-text"></span>
+	</div>
+	<div id="notification"></div>
+
+	<!-- TO HERE CONTAIN CODE FOR HTML ANIMATION LOADING -->
+
+	<!-- <script src="./Scripts/authEmail.js"></script> -->
+	<script>
+		function chooseEmail(){
+			ipcRenderer.send('changeOption','choose_email')
+		}
+
+        const boxContainer = document.getElementById('boxContainer');
+        const loginBox = document.getElementById('loginBox');
+
+        boxContainer.addEventListener('mouseenter', () => {
+            loginBox.style.opacity = '0.9';
+        });
+
+        boxContainer.addEventListener('mouseleave', () => {
+            loginBox.style.backgroundColor = '';
+            loginBox.style.opacity = '1';
+        });
+
+
+
+        function authenticateYahoo(){
+		  const Username = document.getElementsByName('UsernameYahoo')[0].value;
+		  const Password = document.getElementsByName('PasswordYahoo')[0].value;
+
+		  Username.length ? Password.length ? (showNotification('Varifying credentials'), ipcRenderer.send('authenticate-yahoo', [Username,Password])) : showNotificationTimeOut('Pls Enter your password') : showNotificationTimeOut('Pls Enter your Username and password')
+
+			document.querySelector(".save_button").disabled = true;
+			document.querySelector(".save_button").style.cursor = 'not-allowed';
+			document.querySelector(".backButton").disabled = true;
+			document.querySelector(".backButton").style.cursor = 'not-allowed';
+		}
+		  
+
+		
+		function validationFailed(){
+			console.log('request to update notification')
+			showNotificationTimeOut('Validation Failed. Pls try again')
+			document.querySelector(".save_button").disabled = false;
+			document.querySelector(".save_button").style.cursor = 'pointer';
+			document.querySelector(".backButton").disabled = false;
+			document.querySelector(".backButton").style.cursor = 'pointer';
+
+		}
+
+        // NOTIFICATION SCRIPT
+        const showNotificationTimeOut = (text) => {
+	      const oldnotificationElement = document.getElementById('notificationSpinning');
+	      oldnotificationElement.style.display = 'none';
+	      const notificationElement = document.getElementById('notification');
+	      notificationElement.textContent = text;
+	      notificationElement.style.display = 'block';
+
+	      setTimeout(() => {
+	        notificationElement.style.display = 'none';
+	      }, 3000); // Adjust the timeout value (in milliseconds) as needed
+	    };
+
+	    const showNotification = (text) => {
+	      const oldnotificationElement = document.getElementById('notification');
+	      oldnotificationElement.style.display = 'none';
+	      const notificationElement = document.getElementById('notificationSpinning');
+	      notificationElement.style.display = 'none'
+	      const notificationText = document.getElementById('notification-text');
+
+	      notificationText.textContent = text;
+	      notificationElement.style.display = 'flex';
+	      
+	    };
+	</script>
+</body>
+</html>

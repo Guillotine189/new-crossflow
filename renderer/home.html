@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="./home.css">
+	<link rel="stylesheet" type="text/css" href="./commoncss.css">
+	<title></title>
+	<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .leftWrapper {
+            background: linear-gradient(135deg, #203a43, #2c5364);
+            color: #ffffff;
+            overflow-y: scroll;
+            transition: background 0.5s ease-in-out;
+            flex: 200px;
+            padding: 20px;
+            flex: 1.9;
+        }
+
+        .uppperHalf {
+            border-bottom: 1px solid #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .option {
+            background: linear-gradient(45deg, #4a4e69, #2b5876);
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .option:hover {
+            background: linear-gradient(45deg, #e94e77, #9a8478);
+        }
+
+        .lowerHalf {
+            padding: 20px;
+/*            flex-grow: 1;*/
+        }
+
+        .addFolderButton {
+            background: linear-gradient(45deg, #4a4e69, #2b5876);
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        .addFolderButton:hover {
+            background: linear-gradient(45deg, #e94e77, #9a8478);
+        }
+
+        .folderTextButton {
+	      background: linear-gradient(45deg, #4a4e69, #2b5876);
+	      color: #ffffff;
+	      padding: 10px;
+	      border: none;
+	      border-radius: 5px;
+	      cursor: pointer;
+	      transition: background 0.3s ease-in-out;
+	    }
+	    
+	    .folderTextButton:hover {
+	      background: linear-gradient(45deg, #e94e77, #9a8478);
+	    }
+
+	    .overlay {
+	      display: none;
+	    }
+
+	    .modal {
+	      background: linear-gradient(45deg, #1E1E1E, #3B3B3B); 
+	      padding: 20px;
+	      border-radius: 10px;
+	    }
+
+	    .addFolderButtonOverlay {
+	      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+	      color: #ffffff;
+	      padding: 10px;
+	      border: none;
+	      border-radius: 5px;
+	      cursor: pointer;
+	      transition: background 0.3s ease-in-out;
+	      margin-right: 10px;
+	    }
+
+	    .addFolderButtonOverlay:hover {
+	      background: linear-gradient(45deg, #e6941b, #FFD700); 
+	    }
+
+	    .overlayEmail {
+	      display: none;
+	    }
+
+	    .modalEmail {
+	      background: linear-gradient(45deg, #1E1E1E, #3B3B3B); 
+	      padding: 20px;
+	      border-radius: 10px;
+	    }
+
+	    .addEmailButtonOverlay {
+	      background: linear-gradient(45deg, #30A5FF, #0063E5); 
+	      color: #ffffff;
+	      padding: 10px;
+	      border: none;
+	      border-radius: 5px;
+	      cursor: pointer;
+	      transition: background 0.3s ease-in-out;
+	      margin-right: 10px;
+	    }
+
+	    .addEmailButtonOverlay:hover {
+	      background: linear-gradient(45deg, #e6941b, #FFD700); 
+	    }
+
+        .rightWrapper {
+            flex-grow: 2;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #ffffff;
+            padding: 20px;
+            transition: background 0.5s ease-in-out;
+            flex: 4.4;
+        }
+
+        .emailLoggedIn {
+	      padding: 10px;
+	      border-bottom: 1px solid #ffffff;
+	    }
+
+
+	    .logoutLogoContainer {
+	      display: flex;
+	      justify-content: flex-end;
+	    }
+
+	    .logoutLogo {
+	      width: 20px;
+	      height: 20px;
+	      cursor: pointer;
+	    }
+
+
+        .selectButtonContainer {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .addEmail,
+        .selectAllButton,
+        .deselectAllButton,
+        .addcsv {
+            background: linear-gradient(45deg, #4a4e69, #2b5876);
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .addEmail:hover,
+        .selectAllButton:hover,
+        .deselectAllButton:hover,
+        .addcsv:hover {
+            background: linear-gradient(45deg, #e94e77, #9a8478);
+        }
+
+        .pageNameContainer {
+            margin-bottom: 20px;
+        }
+
+        .pageNameText {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .addNewEmail {
+            margin-bottom: 20px;
+        }
+
+	    .searchBarContainer {
+	      margin-top: -50px;
+	      display: flex;
+	      align-items: center;
+	      margin-bottom: 15px;
+	    }
+
+	    .searchBar {
+	      flex: 1;
+	      padding: 10px;
+	      border: none;
+	      border-radius: 15px;
+	      color: black;
+	    }
+
+	    .searchLogo {
+	      width: 20px;
+	      height: 20px;
+	      cursor: pointer;
+	    }
+
+        .selectedMailTextContainer {
+            margin-bottom: 20px;
+        }
+
+        .selectedMailText {
+            font-size: 18px;
+            color: black;
+        }
+
+        .name-list {
+		  text-align: center;
+		  padding: 10px;
+		  display: flex;
+		  flex-direction: column;
+		  webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+		  box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68);
+		  width: 95%;
+        }
+
+        .dialog-container {
+		  display: none;
+		  position: absolute;
+		  padding: 20px;
+		  background-color: #fff;
+		  border: 1px solid #ccc;
+		  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dialog-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dialog-container li button {
+            background: linear-gradient(45deg, #4a4e69, #2b5876);
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            margin-bottom: 10px;
+        }
+
+        .dialog-container li button:hover {
+            background: linear-gradient(45deg, #e94e77, #9a8478);
+        }
+
+    </style>
+</head>
+<body>
+	<div class="container">
+
+		<div class="leftWrapper">
+
+			<div class="uppperHalf">
+				<div class="options">
+					<button class="option" onclick="changeOption('home')">
+						Home
+					</button>
+					<button class="option" onclick="changeOption('composeEmail')">
+						Compose Email
+					</button>
+					<button class="option" onclick="changeOption('sentEmail')">
+						Sent
+					</button>
+					<button class="option" onclick="changeOption('draftedEmail')">
+						Draft
+					</button>
+					<button class="option" onclick="changeOption('scheduledEmail')">
+						Scheduled Emails
+					</button>
+				</div>
+			</div>
+			<hr>
+			<div class="lowerHalf">
+				<div class="lowerHalfContainer">
+
+					<div class="addfolderContainer">
+						<button class="addFolderButton" onclick="showOverlay()">Add Folder</button>
+					</div>
+					<div class="folderContainer">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="overlay" id="overlay">
+	        <div class="modal">
+	        	<p class="addFolderText">Enter Folder Name</p>
+	        	<input type="text" id="addFolderInput" placeholder="Folder name" class="addFolderInput">
+	            <button onclick="addFolder()" class="addFolderButtonOverlay">Add</button>
+	            <button onclick="hideOverlay()" class="addFolderButtonOverlay">close</button>
+	        </div>
+	    </div>
+
+		<div class="overlayEmail" id="overlayEmail">
+	        <div class="modalEmail">
+	        	<p class="addEmailText">Enter email </p>
+	        	<input type="text" id="addEmailInput" placeholder="Email name" class="addEmailInput">
+	            <button onclick="addEmail()" class="addEmailButtonOverlay">Add</button>
+	            <button onclick="hideOverlayEmail()" class="addEmailButtonOverlay">close</button>
+	        </div>
+	    </div>
+
+		<div class="overlayAddToFolder" id="overlayAddToFolder">
+	        <div class="modalAddToFolder">
+	        	<!-- <div class="addToFolderButtonContainer">
+
+	        		<p class="addToFolderText">Select Folder</p>
+	        		<button class="addToFolderButton"></button>
+	        	</div>
+	        	<div class="addToFolderAddButton"></div>
+	        	<div class="addToFolderCloseButton"></div> -->
+	        </div>
+	    </div>
+
+		<div class="rightWrapper">
+			<div class="emailLoggedIn">
+				<div class="emailLoggedInText">
+					Logged in as <b>Something</b>
+				</div>
+				<div class="logoutLogoContainer">
+					<img class="logoutLogo" src="Logos/logout.jpg" onclick="ipcRenderer.send('logout',[])">
+				</div>
+			</div>
+
+			<br>
+				
+			<div class="selectButtonContainer">
+				<div class="addEmail" onclick='showOverlayEmail()'>
+					Add Email
+				</div>
+				<div class="selectAllButton" onclick='selectAll()'>
+					Select All
+				</div>
+				<div class="deselectAllButton" onclick='deselectAll()'>
+					Deselect All
+				</div>
+				<div class="addcsv" onclick='openCsvDialog()'>
+					Add from csv file
+				</div>
+			</div>
+			<div class="pageNameContainer">
+				<div class="pageNameText">HOME</div>
+			</div>
+
+			<br>
+			<div class="addNewEmail"><!-- 
+				<input type='email'required class="addEmailInput">
+				<button class="addEmailButton"></button>
+				<button class="addEmailButtonX"></button> -->
+			</div>
+
+			<div class="searchBarContainer">
+				<input type="text" class="searchBar" placeholder="">
+				<img src="Logos/search.png" class="searchLogo">
+			</div>
+			<div class="selectedMailTextContainer">
+				<div class="selectedMailText"></div>
+			</div>
+
+
+			<div class="name-list" id="namesList">
+		    
+			</div>
+			<div class="rightWrapperText"></div>
+
+
+		</div>
+
+		<div class="dialog-container" id="dialogBox">
+		    <ul>
+		      <li><button onclick="sendBulkEmail()">Send Email</button></li>
+		      <li><button onclick="removeEmail()">Remove</button></li>
+		      <li><button onclick="showOverlayAddToFolder()">Add to Folder</button></li>
+		      <li><button onclick="closeDialog()">Close</button></li>
+		    </ul>
+		</div>
+		<div id="notification"></div>
+	</div>
+
+	<script src="./commonScript.js"></script>
+	<script>
+
+
+		let total_time = 0;
+		let totalAddBox = 0;
+		let filteredListIndices = [];
+		let ButtonsClicked = [];
+		let namesArray = [];
+		let folderList = [];
+
+
+		function changeOption(path){
+			console.log('sending request for changing option')
+			ipcRenderer.send('changeOption',path)
+			// console.log('sending request to update Emails')
+		    // ipcRenderer.send('updateEmailList',namesArray);
+		    return
+		}
+
+		if(total_time === 0){
+			console.log('Sending request for login')
+			ipcRenderer.send('getLogin')
+			console.log('Sending request to get emails')
+			ipcRenderer.send('getEmailList')
+			console.log('sending reqiuest to fetch Folders')
+			ipcRenderer.send('send-folderList', [])
+			total_time += 1
+		}
+
+		function updateEmailList(data){
+
+			console.log("DATA : " + data)
+
+			if(data === ''){
+				namesArray = []
+			}else{
+				namesArray = data.split(',')
+			}
+			updateList();
+			total_time = total_time + 1
+		}
+
+		function updateList(){
+			if (namesArray.length === 0){
+				let element = document.querySelector('.name-list')
+				element.innerHTML = ''
+				let classTo = document.querySelector('.rightWrapperText')
+				classTo.innerText = ''
+				let blankPage = document.createElement('div')
+				blankPage.className = 'rightWrapperText'
+				blankPage.textContent = 'Looks Like you have no emails! Add some emails to view them here.'
+				classTo.appendChild(blankPage)
+				updateSelectedListText()
+			}else{
+				let element = document.querySelector('.name-list')
+				element.innerHTML = ''
+				let classTo = document.querySelector('.rightWrapperText')
+				classTo.innerText = ''
+
+				let namesList = document.getElementById("namesList");
+				let count = 0;
+			    namesArray.forEach(name => {
+			      let listItem = document.createElement("button");
+			      listItem.className = "name-item";
+			      listItem.id = count;
+			      listItem.textContent = name;
+			      listItem.addEventListener('mousedown', handleButtonClick);
+			      namesList.appendChild(listItem);
+			      count += 1;
+			    });
+			    updateSelectedListText()
+			}
+		}
+
+		function handleButtonClick(event) {
+			const clickedButton = event.target;
+	        if (event.button === 0) {
+	        	// left click
+		        console.log('Left button clicked!');
+		        const buttonId = clickedButton.id
+		        if(ButtonsClicked.includes(buttonId)){
+		        	const indexToRemove = ButtonsClicked.indexOf(buttonId);
+      				ButtonsClicked.splice(indexToRemove, 1);
+					console.log(ButtonsClicked)
+				    const myElement = document.getElementById(buttonId);
+				    myElement.style.backgroundColor = '';
+				    updateSelectedListText()
+		        }else{
+					ButtonsClicked.push(buttonId)
+					console.log(ButtonsClicked)
+				    const myElement = document.getElementById(buttonId);
+				    myElement.style.backgroundColor = '#dbf2d3';
+			    	updateSelectedListText()
+		        }
+
+		    } else if (event.button === 2) {
+		        // right click
+		        console.log('Right button clicked!');
+		        let Emails = [];
+		        ButtonsClicked.forEach(id => {
+		        	const Email = namesArray[id];
+		        	Emails.push(Email);
+		        })
+
+		    }
+	    }
+
+
+	    function updateSelectedListText(){
+
+	    	let ContainerElement = document.querySelector('.selectedMailTextContainer')
+
+	    	let element = document.querySelector('.selectedMailText')
+	    	console.log('updating Selected Text')
+		    if(ButtonsClicked.length > 0){
+		    	ContainerElement.style.display = 'flex'
+		    	element.innerText = "Selected: " + ButtonsClicked.length
+		    }else{
+		    	ContainerElement.style.display = 'none'
+		    	element.innerText = ''
+		    }
+	    }
+
+
+
+
+	    function addEmail(){
+	    	console.log('before adding')
+			console.log(folderList)
+			const element = document.getElementById('addEmailInput')
+			const emailName = element.value
+			if(emailName.length === 0){
+			    document.getElementById('overlayEmail').style.display = 'none';
+				return
+			}
+			namesArray.splice(0,0,emailName)	
+			console.log('sending request to update Emails')
+		    ipcRenderer.send('updateEmailList',namesArray);
+			const parentElement = document.querySelector('.addNewEmail')
+			parentElement.innerHTML = ''
+			updateList()
+
+
+			document.getElementById('overlayEmail').style.display = 'none';
+
+
+	    	// if(totalAddBox > 0)
+	    	// 	return
+			// const element = document.querySelector('.addNewEmail')
+			// const item = document.createElement('input')
+			// item.className = 'addEmailInput'
+			// item.type = 'email'
+			// const item2 = document.createElement('button')
+			// item2.className = 'addEmailButton'
+			// item2.innerText = 'Add'
+			// item2.onclick = addEmailToList
+			// const item3 = document.createElement('button')
+			// item3.className = 'addEmailButtonX'
+			// item3.innerText = 'X'
+			// item3.onclick = backToList
+
+
+			// element.appendChild(item)
+			// element.appendChild(item2)
+			// element.appendChild(item3)
+			// totalAddBox += 1;
+
+		}
+
+		function addEmailToList(){
+			console.log('request to add meail received')
+			const element = document.querySelector('.addEmailInput').value
+			console.log(element)
+			if (element){
+				namesArray.splice(0,0,element)
+				console.log('added email to list but not rendered')
+				console.log(namesArray)
+				const parentElement = document.querySelector('.addNewEmail')
+				parentElement.innerHTML = ''
+				updateList()
+
+				console.log('sending request to update Emails')
+			    ipcRenderer.send('updateEmailList',namesArray);
+				totalAddBox = 0
+			}else{backToList()}
+
+		}
+
+		function backToList(){
+			const parentElement = document.querySelector('.addNewEmail')
+			parentElement.innerHTML = ''
+			totalAddBox = 0
+		}
+
+		function openDialog(event) {
+	      event.preventDefault();
+
+	      const dialogBox = document.getElementById('dialogBox');
+	      const mouseX = event.clientX;
+	      const mouseY = event.clientY;
+
+	      dialogBox.style.left = `${mouseX - dialogBox.offsetWidth}px`;
+	      dialogBox.style.top = `${mouseY}px`;
+	      dialogBox.style.display = 'block';
+
+	      document.addEventListener('click', closeDialogOutside);
+	    }
+
+		function closeDialog() {
+		      const dialogBox = document.getElementById('dialogBox');
+		      dialogBox.style.display = 'none';
+		      document.removeEventListener('click', closeDialogOutside);
+		}
+
+		function closeDialogOutside(event) {
+		      const dialogBox = document.getElementById('dialogBox');
+		      if (!dialogBox.contains(event.target)) {
+		        closeDialog();
+		      }
+		}
+
+
+		document.body.addEventListener('contextmenu', openDialog);
+
+
+		const searchInput = document.querySelector('.searchBar');
+		searchInput.addEventListener('input', function () {
+
+			const inputValue = searchInput.value.toLowerCase();
+	        // const filteredCharacters = namesArray.filter(char => {
+	        // 	char.includes(inputValue)
+	        // 	console.log(char.id)
+	        // });
+	        // console.log(filteredCharacters)
+
+	        const filteredIndices = namesArray.reduce((acc, name, index) => {
+	          if (name.toLowerCase().includes(inputValue)) {
+	            acc.push(index);
+	          }
+	          return acc;
+	        }, []);
+
+	        filteredListIndices = filteredIndices;
+	        updateListFiltered()
+
+        });
+
+        function updateListFiltered(){
+			if (filteredListIndices.length === 0){
+				let element = document.querySelector('.name-list')
+				element.innerHTML = ''
+				let classTo = document.querySelector('.rightWrapperText')
+				classTo.innerText = ''
+				let blankPage = document.createElement('div')
+				blankPage.className = 'rightWrapperText'
+				if(namesArray.length > 0)
+					blankPage.textContent = 'No results'
+				else
+					blankPage.textContent = 'Looks Like you have no emails! Add some emails to view them here.'
+				classTo.appendChild(blankPage)
+				updateSelectedListText()
+			}else{
+				let element = document.querySelector('.name-list')
+				element.innerHTML = ''
+				let classTo = document.querySelector('.rightWrapperText')
+				classTo.innerText = ''
+				let namesList = document.getElementById("namesList");
+				let count = 0;
+			    filteredListIndices.forEach(index => {
+			      index = `${index}`
+			      let listItem = document.createElement("button");
+			      listItem.className = "name-item";
+			      listItem.textContent = namesArray[index];
+			      listItem.addEventListener('click', () => handleFiltered(index));
+			      listItem.id = index
+			      if(ButtonsClicked.includes(index)){
+			      	listItem.style.backgroundColor = '#dbf2d3';
+			      }else{
+			      	listItem.style.backgroundColor = '#d5e5ed';
+			      }
+			      namesList.appendChild(listItem);
+			    });
+			    updateSelectedListText()
+			}
+		}
+
+		function handleFiltered(id) {
+
+	      if (ButtonsClicked.includes(id)) {
+	        ButtonsClicked = ButtonsClicked.filter(buttonId => buttonId !== id);
+	      	console.log(ButtonsClicked)
+	      	updateListFiltered()
+	      } else {
+	        ButtonsClicked.push(id);
+	      	console.log(ButtonsClicked)
+	      	updateListFiltered()
+	      }
+	  	}
+
+
+		function sendBulkEmail(){
+
+		    let Emails = [];
+		    ButtonsClicked.forEach(id => {
+		    	const Email = namesArray[id];
+		    	Emails.push(Email);
+		    })
+		    closeDialog()
+
+		    ipcRenderer.send('changeOption', 'composeEmail');
+		    ipcRenderer.send('EmailToData', Emails);
+		    ipcRenderer.send('updateEmailList',namesArray);
+		}
+
+		function removeEmail(){
+			let tempArr = [];
+			const namesList = document.getElementById("namesList");
+
+	    	ButtonsClicked.forEach((element) => { // element is the index of namesArr
+	    		console.log(element)
+	    		namesArray.splice(element,1,-1)
+	    	})
+
+	    	namesArray.forEach((element, index) => {
+	    		console.log(element, index)
+	    		if(element === -1){
+	    		}else{
+	    			tempArr.push(element)
+	    		}
+	    	})
+	    	ButtonsClicked = []
+	    	namesArray = tempArr
+			closeDialog()
+			updateList()
+			updateSelectedListText()
+			console.log('sending request to update Emails')
+		    ipcRenderer.send('updateEmailList',namesArray);
+		}
+
+
+
+	    function selectAll(){
+	    	let allButtonArrayId = []
+	    	const namesList = document.getElementById("namesList");
+	    	const totalNames = namesList.childElementCount
+	    	console.log(totalNames)
+
+	    	const directChildElements = namesList.children;
+
+	    	for (const child of directChildElements) {
+	    		let i = child.id
+	    		console.log(i)
+	    		if(! ButtonsClicked.includes(`${i}`))
+		    		ButtonsClicked.splice(i,0,`${i}`) // adding id 1,2,3 to position 1,2,3
+		    		const myElement = document.getElementById(i);
+				    myElement.style.backgroundColor = '#dbf2d3';
+	    	}
+	    	console.log(ButtonsClicked)
+	    	updateSelectedListText()
+	    }
+
+	    function deselectAll(){
+	    	console.log("deselected called")
+	    	let allButtonArrayId = ButtonsClicked
+	    	const namesList = document.getElementById("namesList");
+	    	const directChildElements = namesList.children;
+	    	let tempArr = [];
+
+	    	for (const child of directChildElements) {
+	    		const i = child.id
+	    		if(ButtonsClicked.includes(`${i}`)){
+	    			const id = ButtonsClicked.indexOf(`${i}`)
+		    		ButtonsClicked.splice(id,1,-1)
+		    		const myElement = document.getElementById(i);
+				    myElement.style.backgroundColor = '#d5e5ed';
+				}
+	    	}
+
+	    	ButtonsClicked.forEach((element, index) => {
+	    		console.log(element, index)
+	    		if(element === -1){
+	    		}else{
+	    			tempArr.push(element)
+	    		}
+	    	})
+	    	ButtonsClicked = tempArr
+	    	console.log(ButtonsClicked)
+	    	updateSelectedListText()
+	    }
+
+	    function openCsvDialog(){
+	    	deselectAll()
+	    	console.log('request to open csv dialog sent')
+	    	ipcRenderer.send('openCsvDialog')
+	    }
+
+
+	    function addEmailFromFile(csvData){
+	    	let emailListToBeAdded = csvData.split(',');
+	    	emailListToBeAdded.forEach((email) => {
+	    		console.log(email)
+	    		namesArray.splice(0,0,email)
+	    	})
+	    	updateList()
+	    }
+
+	    // add the folder, then update the list(creating new id in the process, then send to update)
+
+		function addFolder() {
+			console.log('adding folder')
+			console.log('before adding')
+			console.log(folderList)
+			const element = document.getElementById('addFolderInput')
+			const folderName = element.value
+			if(folderName.length === 0){
+			    document.getElementById('overlay').style.display = 'none';
+				return
+			}
+		    updateFolderList()
+			const folderContainerElement = document.querySelector('.folderContainer')
+			const folderElement = document.createElement('button')
+			folderElement.className = 'folderTextButton'
+			folderElement.innerText = folderName
+			const Id = 'F' + folderList.length
+			folderElement.id = Id
+			folderElement.addEventListener('mousedown', function(event) {handlefolderClick(event,Id)});
+			folderContainerElement.appendChild(folderElement)
+		    document.getElementById('overlay').style.display = 'none';
+
+		    const folderId = Id; 
+		    const folderContent = {
+		    	name: folderName,
+		    	emailList: ['test']
+		    }
+		    const toPush = {
+		    	Id: folderId,
+		    	content: folderContent
+		    }
+		    folderList.push(toPush)
+		    console.log('after adding')
+		    console.log(folderList)
+
+		    showNotificationTimeOut('Added folder ' + folderContent.name)
+		    console.log('sending request to update Folder name')
+		    ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+		    updateFolderList()
+		}
+
+		function updateFolderList(){  // THIS ASSIGNS NEW ID TO ALL FOLDERS and renders list
+			console.log('now updating the folder list')
+			let count = 0;
+			const folderContainerElement = document.querySelector('.folderContainer')
+			folderContainerElement.innerHTML = ''
+			folderList.forEach((folderData) => {
+
+		        const indiFoldercontainer = document.createElement('div')
+                indiFoldercontainer.className = 'indiFoldercontainder'
+
+				const folderElement = document.createElement('button')
+				folderElement.className = 'folderTextButton'
+				const folderName = folderData['content']['name']
+				folderElement.innerText = folderData['content']['name']
+				const Id = 'F' + count
+				folderElement.id = Id
+				folderElement.addEventListener('mousedown', function(event) {handlefolderClick(event,Id)});
+				indiFoldercontainer.appendChild(folderElement)
+				const deleteImgElement = document.createElement('img')
+		        deleteImgElement.src = 'Logos/delete.png'
+		        deleteImgElement.className = 'folderDeleteImg'
+		        deleteImgElement.addEventListener('click', function(event){deleteFolder(event,Id)})
+		        indiFoldercontainer.appendChild(deleteImgElement)
+
+				folderContainerElement.appendChild(indiFoldercontainer)
+			    document.getElementById('overlay').style.display = 'none';
+		    	count += 1
+			})
+		
+
+			console.log('update Folder List')
+			console.log(folderList)
+
+		    // console.log('sending request to update Folder name')
+		    // ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+		}
+
+		let ClickedFolders = [];
+		function showOverlayAddToFolder(){
+			ClickedFolders = [];
+			closeDialog()
+			console.log(ButtonsClicked)
+			console.log(folderList)
+
+		    const ContainerAddTO =  document.querySelector('.modalAddToFolder')   // emoty the tag
+		    ContainerAddTO.innerHTML = ''
+
+
+		    const buttonContainerEle = document.createElement('div')
+		    buttonContainerEle.className = 'addToFolderButtonContainer'
+		    const addToFolderText = document.createElement('p')
+		    addToFolderText.className = 'addToFolderText' 
+		    addToFolderText.innerText = 'Select a Folder'
+		    buttonContainerEle.appendChild(addToFolderText)				// add text tag
+		    ContainerAddTO.appendChild(buttonContainerEle)
+
+
+		    folderList.forEach((folderData) => {
+		    	console.log(folderData.content.name)
+		    	const folderId = (folderData.Id).split('F')[1]
+		    	const folderName = folderData.content.name
+		    	const buttonContainerElement = document.createElement('div')
+		    	buttonContainerElement.className = 'addToFolderButtonContainer'
+		    	const buttonElement = document.createElement('button')
+		    	buttonElement.className = 'addToFolderButton'
+		    	buttonElement.innerText = folderName
+		    	buttonElement.id = "T" + folderId
+		    	buttonElement.addEventListener('click', function(event){handleAddToEvent(event,folderId)})
+		    	buttonContainerElement.appendChild(buttonElement)
+		    	ContainerAddTO.appendChild(buttonContainerElement)			// add all folder options
+
+		    })
+
+	    	const addButtonElement = document.createElement('button')
+	    	addButtonElement.className = 'addToFolderAddButton'
+	    	addButtonElement.innerText = 'Add'
+	    	addButtonElement.addEventListener('click',addToTheseFolders)
+
+	    	const closeButtonElement = document.createElement('button')
+	    	closeButtonElement.className = 'addToFolderCloseButton'
+	    	closeButtonElement.innerText = 'Close'
+	    	closeButtonElement.addEventListener('click', function(event){document.getElementById('overlayAddToFolder').style.display = 'none';})
+	    	ContainerAddTO.appendChild(addButtonElement)
+	    	ContainerAddTO.appendChild(closeButtonElement)			// add close button
+		    // added all the folder name as constainer
+
+		    document.getElementById('overlayAddToFolder').style.display = 'flex';   // show the box
+		    
+
+		}
+
+
+		function handleAddToEvent(event,id){
+
+			const element = document.getElementById("T"+id)
+			console.log(element)
+			if(!ClickedFolders.includes(id)){
+				element.style.backgroundColor = '#dbf2d3'
+				ClickedFolders.push(id)
+			}else{
+				element.style.backgroundColor = ''
+				const index = ClickedFolders.indexOf(id)
+				ClickedFolders.splice(index,1)
+			}
+			console.log(ClickedFolders)
+
+		}
+
+		function addToTheseFolders(){
+			document.getElementById('overlayAddToFolder').style.display = 'none';
+			console.log('clicked on add to these folder ')
+			console.log("FOLDERS SELECTED: " + ClickedFolders)
+			console.log("EMAILS SELECTED: " + ButtonsClicked)
+			let emailListNames = [];
+			ButtonsClicked.forEach((email) => {
+				emailListNames.push(namesArray[email])
+			})
+			console.log(emailListNames)
+			ClickedFolders.forEach((folder) => {
+				let tempArr = folderList[folder].content.emailList
+				emailListNames.forEach((name) => {
+					tempArr.push(name)
+				})
+				folderList[folder].content.emailList = tempArr
+			    console.log('sending request to update Folder name')
+			    ipcRenderer.send('updateFolderList', btoa(JSON.stringify(folderList)))
+				
+			})
+			showNotificationTimeOut('Added emails to folders')
+			deselectAll()
+		}
+
+		function showOverlayEmail(){
+			document.getElementById('addEmailInput').value = '';
+		    document.getElementById('overlayEmail').style.display = 'flex';
+
+		}
+
+		function showOverlay() {
+			document.getElementById('addFolderInput').value = '';
+		    document.getElementById('overlay').style.display = 'flex';
+		}
+
+		function hideOverlay() {
+		    document.getElementById('overlay').style.display = 'none';
+		}
+		function hideOverlayEmail() {
+		    document.getElementById('overlayEmail').style.display = 'none';
+		}
+
+		function updateFolders(data){ // this assigns value to list
+			console.log(data)
+			let newData = atob(data)
+			console.log(newData)
+			newData = JSON.parse(newData)
+			console.log(newData)
+			folderList = newData
+			updateFolderList() // this renders the list with original ids
+		}
+
+
+		function handlefolderClick(event,id){
+			console.log(id)
+			console.log('sending request to show folder fontent for ' + id)
+			ipcRenderer.send('showFolderContent', id)
+		}
+
+
+		function updateUsername(data){
+			const usernameElement = document.querySelector('.emailLoggedInText')
+			usernameElement.innerText = "Logged in as: " + data
+		}
+
+	</script>
+</body>
+</html>
