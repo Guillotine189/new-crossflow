@@ -783,7 +783,7 @@ function startBackgroundProcess(data) {
 
   const backgroundProcess = fork(path.join(__dirname,'renderer/background.js'), [], {
     detached: true,
-    stdio: 'inherit'
+    stdio: 'ignore'
   });
 
   // FROM HERE
