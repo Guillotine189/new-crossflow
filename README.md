@@ -31,4 +31,4 @@ cd dist
 cd {whatever the folder name is there}
 ```
 
-then open "Yourapp" program
+then open "YourApp" program
