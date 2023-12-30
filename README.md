@@ -22,7 +22,7 @@ npm run package-linux
 ```bash
 npm run package-win
 ```
-# for max users
+# for mac users
 ```bash
 npm run package-mac
 ```
