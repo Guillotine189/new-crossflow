@@ -1,7 +1,4 @@
 # new-crossflow
-
-# Your App Name - Linux
-
 Welcome to crossflow
 Follow the steps below to get started:
 
