@@ -39,30 +39,30 @@ const sentMailPath = 'sentMail.json'
 const draftedEmailPath = 'draftedMails.json'
 const folderDataPath = 'folders.json'
 
+
 let ChildProcessId = getStoredChildProcesses();
 
 function createMainWindow(){
-	mainWindow = new BrowserWindow({
-		title: 'Email Client',
-		width: 1600, // 1100 correct size without dev tools
-		height: 900,
+  mainWindow = new BrowserWindow({
+    title: 'Email Client',
+    width: 1150, // 1100 correct size without dev tools
+    height: 900,
     autoHideMenuBar: true,
-		webPreferences: {
-		  contextIsolation: true,
-		  nodeIntegration: true,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: true,
       // enableRemoteModule: true,
-	      preload: path.join(__dirname, 'preload.js')
-	    }
-	});
+        preload: path.join(__dirname, 'preload.js')
+      }
+  });
 }
 
 
 
-
+let exit_count = 0;
 app.whenReady().then(()=> {
   createMainWindow();
   mainWindow.loadFile(path.join(__dirname,'./renderer/choose_email.html'));
-  mainWindow.webContents.openDevTools();
 
   // read scheduled messages
   scheduleEmails = getStoredChildProcessesEmaildata()
@@ -91,6 +91,20 @@ app.whenReady().then(()=> {
     }
   });
 
+  mainWindow.on('close', (event) => {
+
+    if (emailsBeingsent) {
+    
+      if(exit_count === 0){
+        event.preventDefault();
+        mainWindow.webContents.executeJavaScript('showNotificationTimeOut("Exit again to stop pending emails and exit.")')
+        exit_count = 1
+        return
+      }
+    }
+  });
+
+  
 });
 
 function isProcessRunning(pid) {
@@ -211,9 +225,9 @@ function readCSVFile(filePath) {
 
 ipcMain.on('authenticate-gmail', async (event, data) => {
 
-	const username = data[0];
-	const password = data[1];
-	// console.log(username,password)
+  const username = data[0];
+  const password = data[1];
+  // console.log(username,password)
   console.log('GMAIL LOGIN TRIED')
 
   const gmail_smtpPort = 587;
@@ -230,7 +244,7 @@ ipcMain.on('authenticate-gmail', async (event, data) => {
   });
 
   try {
-	console.log('verifying Cradentials');
+  console.log('verifying Cradentials');
     await transporter.verify();
     console.log('Cradentials verified')
     LoggedInWith='Gmail'
@@ -256,7 +270,7 @@ ipcMain.on('authenticate-gmail', async (event, data) => {
 
 
 ipcMain.on('authenticate-outlook', async (event, data) => {
-	
+  
   const username = data[0];
   const password = data[1];
   // console.log(username,password)
@@ -275,7 +289,7 @@ ipcMain.on('authenticate-outlook', async (event, data) => {
   });
 
   try {
-	console.log('verifying Cradentials');
+  console.log('verifying Cradentials');
     await transporter.verify()
     // .then(() => {
     //   // Check if the connection is secure
@@ -311,9 +325,9 @@ ipcMain.on('authenticate-outlook', async (event, data) => {
 
 ipcMain.on('authenticate-yahoo', async (event, data) => {
 
-	const username = data[0];
-	const password = data[1];
-	// console.log(username,password)
+  const username = data[0];
+  const password = data[1];
+  // console.log(username,password)
 
   const yahoo_smtpPort = 587;
   const yahoo_smtpServer = 'smtp.mail.yahoo.com';
@@ -331,7 +345,7 @@ ipcMain.on('authenticate-yahoo', async (event, data) => {
   });
 
   try {
-	console.log('verifying Cradentials');
+  console.log('verifying Cradentials');
     await transporter.verify();
     console.log('Cradentials verified')
     LoggedInWith='Yahoo'
@@ -411,6 +425,8 @@ ipcMain.on('sendMail', async (event, data) => {
     
       
     for (let everyEmailRecipient of EmailrecipientList) {
+      
+      emailsBeingsent=true
       if(everyEmailRecipient === ''){
         console.log('got a blank username. SKIPPING!!')
         continue
@@ -471,6 +487,7 @@ ipcMain.on('sendMail', async (event, data) => {
     console.log('THIS IS SENT EMAILS')
     emailsBeingsent = false
     console.log(sentEmails)
+    exit_count = 0
   }
 
 })
@@ -500,6 +517,7 @@ ipcMain.on('logout',async (event, data) => {
   MainPassword = '';
   LoggedInWith = '';
   verified = false;
+  exit_count = 0
   mainWindow.loadFile(path.join(__dirname,`./renderer/choose_email.html`));
 
 })
@@ -507,9 +525,10 @@ ipcMain.on('logout',async (event, data) => {
 
 ipcMain.on('navigate', async (event, pageTo) => {
 
-	selectedMail = pageTo
-	console.log(pageTo + 'Login.html')
-	mainWindow.loadFile(path.join(__dirname,`./renderer/${pageTo}Login.html`));
+  selectedMail = pageTo
+  console.log(pageTo + 'Login.html')
+  mainWindow.loadFile(path.join(__dirname,`./renderer/${pageTo}Login.html`));
+  exit_count = 0 
 })
 
 
@@ -518,6 +537,7 @@ ipcMain.on('changeOption', async (event, pageTo) => {
   selectedOption = pageTo
   console.log("Received request to navigate to " + pageTo + '.html')
   mainWindow.loadFile(path.join(__dirname,`./renderer/${pageTo}.html`));
+  exit_count = 0
 })
 
 
@@ -944,7 +964,6 @@ ipcMain.handle('checkCronTime', (_, cronTime) => {
     return false;
   }
 });
-
 
 app.on('window-all-closed', () => {
 

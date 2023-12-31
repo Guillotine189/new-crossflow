@@ -817,6 +817,7 @@
 	    		namesArray.splice(0,0,email)
 	    	})
 	    	updateList()
+	    	ipcRenderer.send('updateEmailList',namesArray)
 	    }
 
 	    // add the folder, then update the list(creating new id in the process, then send to update)

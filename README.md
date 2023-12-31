@@ -10,9 +10,12 @@ Make sure you have node installed on your device
 ```bash
 git clone https://github.com/Guillotine189/new-crossflow.git
 cd new-crossflow
+```
+## Install dependencies
+```bash
 npm install
 ```
-
+## Build the app for your platform
 # for linux users
 ```bash
 npm run package-linux
@@ -26,9 +29,11 @@ npm run package-win
 ```bash
 npm run package-mac
 ```
+
+## After building the app
 ```bash
 cd dist
 cd {whatever the folder name is there}
 ```
 
-After that you will see a "YouApp" application, double click it to launch the app.
+After that you will see a "YouApp" application, double click it to launch.
