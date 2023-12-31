@@ -44,7 +44,7 @@ let ChildProcessId = getStoredChildProcesses();
 function createMainWindow(){
 	mainWindow = new BrowserWindow({
 		title: 'Email Client',
-		width: 1100, // 1100 correct size without dev tools
+		width: 1600, // 1100 correct size without dev tools
 		height: 900,
     autoHideMenuBar: true,
 		webPreferences: {
@@ -62,6 +62,7 @@ function createMainWindow(){
 app.whenReady().then(()=> {
   createMainWindow();
   mainWindow.loadFile(path.join(__dirname,'./renderer/choose_email.html'));
+  mainWindow.webContents.openDevTools();
 
   // read scheduled messages
   scheduleEmails = getStoredChildProcessesEmaildata()
@@ -437,10 +438,15 @@ ipcMain.on('sendMail', async (event, data) => {
         text: Emailbody,
         attachments: myAttachments
       };
-
-      console.log(`Sending email to ${everyEmailRecipient}`);
-      await transporter.sendMail(mailOptions);
-      console.log(`Email sent to ${everyEmailRecipient}`);
+      try{
+        console.log(`Sending email to ${everyEmailRecipient}`);
+        await transporter.sendMail(mailOptions);
+        console.log(`Email sent to ${everyEmailRecipient}`);
+      }catch(error){
+        console.log('not a valid email')
+        continue
+      }
+        
 
       const options = { year: 'numeric', month: 'short', day: 'numeric' };
 

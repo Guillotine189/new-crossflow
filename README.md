@@ -1,6 +1,9 @@
 # new-crossflow
-Welcome to crossflow
+Welcome to crossflow, a emailing client app.
 Follow the steps below to get started:
+
+
+Make sure you have node installed on your device
 
 ## Clone the Repository
 
@@ -28,4 +31,4 @@ cd dist
 cd {whatever the folder name is there}
 ```
 
-then open "YourApp" program
+After that you will see a "YouApp" application, double click it to launch the app.

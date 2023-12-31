@@ -148,10 +148,14 @@ async function sendScheduledEmail(data){
         text: Emailbody,
         attachments: await returnAttachments()
       };
-
-      console.log(`Sending email to ${everyEmailRecipient}`);
-      await transporter.sendMail(mailOptions);
-      console.log(`Email sent to ${everyEmailRecipient}`);
+      try{
+        console.log(`Sending email to ${everyEmailRecipient}`);
+        await transporter.sendMail(mailOptions);
+        console.log(`Email sent to ${everyEmailRecipient}`);
+      }catch(error){
+        console.log('not a valid email')
+        continue
+      }
 
 
 
