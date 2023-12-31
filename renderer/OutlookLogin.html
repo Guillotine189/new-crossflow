@@ -59,7 +59,7 @@
 		  const Password = document.getElementsByName('PasswordOutlook')[0].value;
 
 		  Username.length ? Password.length ? (showNotification('Varifying credentials'),ipcRenderer.send('authenticate-gmail', [Username,Password]),document.querySelector(".save_button").disabled = true,document.querySelector(".save_button").style.cursor = 'not-allowed',document.querySelector(".backButton").disabled = true,document.querySelector(".backButton").style.cursor = 'not-allowed') : showNotificationTimeOut('Pls Enter your password') : showNotificationTimeOut('Pls Enter your Username and password')
-
+		}
 		// ADDITIONAL SCRIPT
 
 
